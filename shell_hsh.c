@@ -9,7 +9,7 @@ int (*builtin_func[]) (char **) = {
 	&hsh_exit,
 	&hsh_env
 };
-/** 
+/**
  * hsh_read_line - read the user command as a string
  *
  * Return: a string with the command
@@ -28,7 +28,7 @@ char *hsh_read_line(void)
 
 	return (line);
 }
-/** 
+/**
  * hsh_split_line - split a string in his words a return a vector to string
  * @line: string line
  * Return: **tokens words in line
@@ -57,7 +57,7 @@ char **hsh_split_line(char *line)
 	tokens[position] = NULL;
 	return (tokens);
 }
-/** 
+/**
  * hsh_launch - create two process and call the execve function
  * @args: arguments of the command
  * Return: 1 if the command execute right and
@@ -91,7 +91,7 @@ int hsh_launch(char **args)
 
 	return (1);
 }
-/** 
+/**
  * hsh_execute - execute the command
  * @args: arguments of the command
  * Return: output of the functions called
@@ -119,7 +119,7 @@ int hsh_execute(char **args)
 
 	return (hsh_launch(args));
 }
-/** 
+/**
  * hsh_loop - main loop of the shell in which is printed the command pront
  *
  * Return: void

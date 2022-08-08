@@ -3,9 +3,9 @@
  * Builtin function implementations.
 */
 
-/** 
+/**
  * hsh_num_builtins - return the number of in built functions
- * 
+ *
  * Return: number of built in functions
  */
 int hsh_num_builtins(void)
@@ -13,7 +13,7 @@ int hsh_num_builtins(void)
 	return (sizeof(builtin_func) / sizeof(char *));
 
 }
-/** 
+/**
  * hsh_cd - change the current working directory
  * @args: arguments of the command
  * Return: always return 1
@@ -36,7 +36,7 @@ int hsh_cd(char **args)
 	return (1);
 
 }
-/** 
+/**
  * hsh_help - print general informations about hsh simple shell
  * @args: arguments of the command
  * Return: always return 1
@@ -67,7 +67,7 @@ int hsh_help(char **args)
 	return (1);
 
 }
-/** 
+/**
  * hsh_exit - finish the current process
  * @args: arguments of the command
  * Return: always return 0
@@ -81,7 +81,7 @@ int hsh_exit(char **args)
 	return (0);
 
 }
-/** 
+/**
  * hsh_env - print the enviromental varibles
  * @args: arguments of the command
  * Return: always return 1
