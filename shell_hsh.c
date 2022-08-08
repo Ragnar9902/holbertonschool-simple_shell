@@ -71,7 +71,7 @@ int hsh_launch(char **args)
 	char *const env[] = {"HOSTNAME=www.linuxhint.com", "PORT=8080", NULL};
 	char *namefile = (char *)malloc(200 * sizeof(char));
 
-	strcat(namefile, "/bin/");
+	/*strcat(namefile, "/bin/");*/
 	strcat(namefile, args[0]);
 
 	if (args[0] == NULL)                      /* An empty command was entered.*/
