@@ -10,7 +10,9 @@
  */
 int hsh_num_builtins(void)
 {
-	return (sizeof(builtin_func) / sizeof(char *));
+	int builtins_num_func = 4;
+
+	return (builtins_num_func);
 
 }
 /**
