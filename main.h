@@ -19,7 +19,7 @@ char **hsh_split_line(char *line);
 int hsh_launch(char **args);
 int hsh_execute(char **args);
 void hsh_loop(void);
-int hsh_num_builtins();
+int hsh_num_builtins(void);
 
 /* Macros */
 #define LSH_RL_BUFSIZE 1024
