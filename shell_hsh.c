@@ -134,18 +134,15 @@ void hsh_loop(char **av)
 	while (status)
 	{
 
-		printf("#cisfun$");
 		line = hsh_read_line();
-		if (line==NULL)
+		status = isatty(STDIN_FILENO);
+		if (status)
 		{
-			if (isatty(STDIN_FILENO))
-			{
-				printf("\n");
-			}
-			if (isatty(STDIN_FILENO)==0)
-			{
-				break;
-			}
+			printf("#cisfun$");
+		}
+		if (isatty(STDIN_FILENO)==0)
+		{
+			break;
 		}
 		args = hsh_split_line(line);
 		status = hsh_execute(args);
