@@ -125,10 +125,10 @@ int hsh_execute(char **args)
  * Return: void
  */
 
-void hsh_loop(void)
+void hsh_loop(char **av)
 {
 	char *line = NULL;
-	char **args = NULL;
+	char **args = av;
 	int status = 1;
 
 	while (status)
@@ -136,6 +136,12 @@ void hsh_loop(void)
 
 		printf("#cisfun$");
 		line = hsh_read_line();
+		if (line==NULL)
+		{
+			if (isatty(STDIN_FILENO))
+				printf("\n");
+			break;
+		}
 		args = hsh_split_line(line);
 		status = hsh_execute(args);
 		free(line);

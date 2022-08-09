@@ -7,11 +7,26 @@
 #include "main.h"
 
 /**
+ * signal_handler - handle the process interrept signal
+ * @signo: the signal identifier
+ *
+ * Return: void
+ */
+void signal_handler(int signo)
+{
+	if (signo == SIGINT)
+	{
+		printf("\n");
+		printf(PROMPT);
+	}
+}
+/**
  * main - Main function for shell
  * Return: Always 1
  */
-int main(void)
+int main(int argc __attribute__((unused)), char **argv, char **environment __attribute__((unused)))
 {
-	hsh_loop();
+	signal(SIGINT, signal_handler);
+	hsh_loop(argv);
 	return (1);
 }

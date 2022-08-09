@@ -8,7 +8,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stddef.h>
+/*define macros*/
 
+#define PROMPT "$ "
 /* Prototypes */
 int hsh_cd(char **args);
 int hsh_help(char **args);
@@ -18,7 +20,7 @@ char *hsh_read_line(void);
 char **hsh_split_line(char *line);
 int hsh_launch(char **args);
 int hsh_execute(char **args);
-void hsh_loop(void);
+void hsh_loop(char **av);
 int hsh_num_builtins(void);
 
 /* Macros */
