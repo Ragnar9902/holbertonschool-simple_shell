@@ -9,8 +9,10 @@
 #include <string.h>
 #include <stddef.h>
 /*define macros*/
-
 #define PROMPT "$ "
+
+/* Global variable */
+extern char **environ;
 /* Prototypes */
 int hsh_cd(char **args);
 int hsh_help(char **args);
@@ -20,7 +22,7 @@ char *hsh_read_line(void);
 char **hsh_split_line(char *line);
 int hsh_launch(char **args, char **envs);
 int hsh_execute(char **args, char **envi);
-void hsh_loop(char **av, char **env);
+void hsh_loop(char **av);
 int hsh_num_builtins(void);
 
 /* Macros */

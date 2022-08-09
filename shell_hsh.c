@@ -124,7 +124,7 @@ int hsh_execute(char **args, char **envi)
  * Return: void
  */
 
-void hsh_loop(char **av, char **env)
+void hsh_loop(char **av)
 {
 	char *line = NULL;
 	char **args = av;
@@ -140,7 +140,7 @@ void hsh_loop(char **av, char **env)
 
 		line = hsh_read_line();
 		args = hsh_split_line(line);
-		status = hsh_execute(args, env);
+		status = hsh_execute(args, environ);
 		free(line);
 		free(args);
 		if (isatty(STDIN_FILENO) == 0)

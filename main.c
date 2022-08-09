@@ -26,9 +26,9 @@ void signal_handler(int signo)
  * @argv: list arguments pass to execute
  * Return: Always 1
  */
-int main(int argc __attribute__((unused)), char **argv, char **environ)
+int main(int argc __attribute__((unused)), char **argv)
 {
 	signal(SIGINT, signal_handler);
-	hsh_loop(argv, environ);
+	hsh_loop(argv);
 	return (1);
 }
