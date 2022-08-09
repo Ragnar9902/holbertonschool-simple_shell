@@ -139,8 +139,13 @@ void hsh_loop(char **av)
 		if (line==NULL)
 		{
 			if (isatty(STDIN_FILENO))
+			{
 				printf("\n");
-			break;
+			}
+			if (isatty(STDIN_FILENO)==0)
+			{
+				break;
+			}
 		}
 		args = hsh_split_line(line);
 		status = hsh_execute(args);
