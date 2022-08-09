@@ -134,7 +134,6 @@ void hsh_loop(char **av)
 	while (status)
 	{
 
-		line = hsh_read_line();
 		status = isatty(STDIN_FILENO);
 		if (status)
 		{
@@ -144,6 +143,7 @@ void hsh_loop(char **av)
 		{
 			break;
 		}
+		line = hsh_read_line();
 		args = hsh_split_line(line);
 		status = hsh_execute(args);
 		free(line);
