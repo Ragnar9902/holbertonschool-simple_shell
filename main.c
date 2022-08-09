@@ -22,9 +22,11 @@ void signal_handler(int signo)
 }
 /**
  * main - Main function for shell
+ * @argc: number of arg pass to execute
+ * @argv: list arguments pass to execute
  * Return: Always 1
  */
-int main(int argc __attribute__((unused)), char **argv, char **environment __attribute__((unused)))
+int main(int argc __attribute__((unused)), char **argv)
 {
 	signal(SIGINT, signal_handler);
 	hsh_loop(argv);

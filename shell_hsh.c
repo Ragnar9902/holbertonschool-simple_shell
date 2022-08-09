@@ -121,7 +121,7 @@ int hsh_execute(char **args)
 }
 /**
  * hsh_loop - main loop of the shell in which is printed the command pront
- *
+ * @av: argument pass to the main loop
  * Return: void
  */
 
@@ -133,21 +133,21 @@ void hsh_loop(char **av)
 
 	while (status)
 	{
-
 		status = isatty(STDIN_FILENO);
 		if (status)
 		{
 			printf("#cisfun$");
 		}
-		if (isatty(STDIN_FILENO)==0)
-		{
-			break;
-		}
+
 		line = hsh_read_line();
 		args = hsh_split_line(line);
 		status = hsh_execute(args);
 		free(line);
 		free(args);
+		if (isatty(STDIN_FILENO) == 0)
+		{
+			break;
+		}
 
 	}
 }
