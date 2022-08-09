@@ -18,9 +18,9 @@ int hsh_env(char **args);
 int hsh_exit(char **args);
 char *hsh_read_line(void);
 char **hsh_split_line(char *line);
-int hsh_launch(char **args);
-int hsh_execute(char **args);
-void hsh_loop(char **av);
+int hsh_launch(char **args, char **envs);
+int hsh_execute(char **args, char **envi);
+void hsh_loop(char **av, char **env);
 int hsh_num_builtins(void);
 
 /* Macros */

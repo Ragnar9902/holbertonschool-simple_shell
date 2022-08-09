@@ -64,11 +64,10 @@ char **hsh_split_line(char *line)
  * 0 if there is a error
  */
 
-int hsh_launch(char **args)
+int hsh_launch(char **args, char **envs)
 {
 	pid_t pid;
 	int status;
-	char *const env[] = {"HOSTNAME=www.linuxhint.com", "PORT=8080", NULL};
 	char *namefile = (char *)malloc(200 * sizeof(char));
 
 	/*strcat(namefile, "/bin/");*/
@@ -80,7 +79,7 @@ int hsh_launch(char **args)
 	pid = fork();
 	if (pid == 0)
 	{                     /* Child process*/
-		if (execve(namefile, args, env) == -1)
+		if (execve(namefile, args, envs) == -1)
 			perror("lsh");
 		/*free(namefile);*/
 		exit(EXIT_FAILURE);
@@ -97,7 +96,7 @@ int hsh_launch(char **args)
  * Return: output of the functions called
  */
 
-int hsh_execute(char **args)
+int hsh_execute(char **args, char **envi)
 {
 	int i = 0;
 	char *builtin_str[] = {
@@ -117,7 +116,7 @@ int hsh_execute(char **args)
 			return ((*builtin_func[i])(args));
 	}
 
-	return (hsh_launch(args));
+	return (hsh_launch(args, envi));
 }
 /**
  * hsh_loop - main loop of the shell in which is printed the command pront
@@ -125,7 +124,7 @@ int hsh_execute(char **args)
  * Return: void
  */
 
-void hsh_loop(char **av)
+void hsh_loop(char **av, char **env)
 {
 	char *line = NULL;
 	char **args = av;
@@ -141,7 +140,7 @@ void hsh_loop(char **av)
 
 		line = hsh_read_line();
 		args = hsh_split_line(line);
-		status = hsh_execute(args);
+		status = hsh_execute(args, env);
 		free(line);
 		free(args);
 		if (isatty(STDIN_FILENO) == 0)
