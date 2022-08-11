@@ -73,9 +73,6 @@ int hsh_launch(char **args, char **envs)
 	/*strcat(namefile, "/bin/");*/
 	strcat(namefile, args[0]);
 
-	if (args[0] == NULL)                      /* An empty command was entered.*/
-		return (1);
-
 	pid = fork();
 	if (pid == 0)
 	{                     /* Child process*/
@@ -127,9 +124,10 @@ int hsh_execute(char **args, char **envi)
 void hsh_loop(char **av)
 {
 	char *line = NULL;
-	char **args = av;
+	char **args = NULL;
 	int status = 1;
 
+	args = av;
 	while (status)
 	{
 		status = isatty(STDIN_FILENO);
