@@ -30,5 +30,5 @@ int main(int argc __attribute__((unused)), char **argv)
 {
 	signal(SIGINT, signal_handler);
 	hsh_loop(argv);
-	return (1);
+	return (0);
 }
