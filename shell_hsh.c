@@ -68,15 +68,16 @@ int hsh_launch(char **args, char **envs)
 {
 	pid_t pid;
 	int status;
-	char *namefile = (char *)malloc(200 * sizeof(char));
+	/*char *namefile = (char *)malloc(200 * sizeof(char));*/
 
 	/*strcat(namefile, "/bin/");*/
-	strcat(namefile, args[0]);
+
+	/*strcat(namefile, args[0]);*/
 
 	pid = fork();
 	if (pid == 0)
 	{                     /* Child process*/
-		if (execve(namefile, args, envs) == -1)
+		if (execve(args[0], args, envs) == -1)
 			perror("lsh");
 		/*free(namefile);*/
 		exit(EXIT_FAILURE);
