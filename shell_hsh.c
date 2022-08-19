@@ -19,11 +19,12 @@ char *hsh_read_line(void)
 {
 	char *line = NULL;
 	size_t bufsize = 0; /* have getline allocate a buffer for us */
+	ssize_t c_r = 0;
 
-	if (getline(&line, &bufsize, stdin) == -1)
+	c_r = getline(&line, &bufsize, stdin);
+	if (c_r == EOF)
 	{
-		if (*line == EOF)
-			exit(EXIT_SUCCESS);  /* We recieved an EOF*/
+		exit(EXIT_SUCCESS);  /* We recieved an EOF*/
 	}
 
 	return (line);
@@ -47,12 +48,12 @@ char **hsh_split_line(char *line)
 		exit(EXIT_FAILURE);
 	}
 
-	token = strtok(line, LSH_TOK_DELIM);
+	token = strtok(line, HSH_TOK_DELIM);
 	while (token != NULL)
 	{
 		tokens[position] = token;
 		position++;
-		token = strtok(NULL, LSH_TOK_DELIM);
+		token = strtok(NULL, HSH_TOK_DELIM);
 	}
 	tokens[position] = NULL;
 	return (tokens);
@@ -60,6 +61,7 @@ char **hsh_split_line(char *line)
 /**
  * hsh_launch - create two process and call the execve function
  * @args: arguments of the command
+ * @envs: environment varibles
  * Return: 1 if the command execute right and
  * 0 if there is a error
  */
@@ -68,16 +70,25 @@ int hsh_launch(char **args, char **envs)
 {
 	pid_t pid;
 	int status;
+	char *fullpath = NULL;
 	/*char *namefile = (char *)malloc(200 * sizeof(char));*/
 
 	/*strcat(namefile, "/bin/");*/
 
 	/*strcat(namefile, args[0]);*/
 
+	/*path = _getenv("PATH");*/
+	/*printf("%s", path);*/
+	fullpath = _which(args[0]);
+	/*printf("\n%s", fullpath);*/
+	if (fullpath == NULL)
+	{	fullpath = args[0];
+	}
 	pid = fork();
 	if (pid == 0)
 	{                     /* Child process*/
-		if (execve(args[0], args, envs) == -1)
+
+		if (execve(fullpath, args, envs) == -1)
 			perror("lsh");
 		/*free(namefile);*/
 		exit(EXIT_FAILURE);
@@ -91,6 +102,7 @@ int hsh_launch(char **args, char **envs)
 /**
  * hsh_execute - execute the command
  * @args: arguments of the command
+ * @envi: enviroment variables
  * Return: output of the functions called
  */
 
@@ -136,7 +148,6 @@ void hsh_loop(char **av)
 		{
 			printf("#cisfun$");
 		}
-
 		line = hsh_read_line();
 		args = hsh_split_line(line);
 		status = hsh_execute(args, environ);

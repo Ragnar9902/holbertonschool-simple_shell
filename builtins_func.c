@@ -77,8 +77,8 @@ int hsh_help(char **args)
 
 int hsh_exit(char **args)
 {
-	if (args[1] == NULL)
-		printf("exit of the shell");
+	if (args[0] == NULL)
+		return (0);
 
 	return (0);
 
@@ -91,12 +91,17 @@ int hsh_exit(char **args)
 
 int hsh_env(char **args)
 {
-	char **s = environ;
+	char **tmp;
+	int i;
 
-	if (args[1] == NULL)
-		printf("exit of the shell");
-	for (; *s; s++)
-		printf("%s\n", *s);
+	if (args[0] == NULL)
+		return (0);
 
-	return (0);
+	for (i = 0, tmp = environ; tmp[i] != NULL; i++)
+	{
+		printf("%s", tmp[i]);
+		putchar('\n');
+	}
+	return (1);
+
 }

@@ -96,12 +96,4 @@ An example:
 **GitHub Account:**
 `https://github.com/Ragnar9902`
 **Email Account:**
-`4588@holbertonschool.com`
-
-
-### Marco Antonio Ordóñez:
-
-**GitHub Account:**
-`https://github.com/MaoScorpion21`
-**Email Account:**
-`mao7021@hotmail.com` `3917@holbertonschool.com`
+`4588@holbertonschool.com'
