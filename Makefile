@@ -2,5 +2,5 @@ error = -Wall -pedantic -Werror -Wextra -std=gnu89
 
 all: main
 
-main: main.c
+main:
 	gcc $(error) -g *.c -o hsh

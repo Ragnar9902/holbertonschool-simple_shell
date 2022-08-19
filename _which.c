@@ -1,70 +1,51 @@
-#include "main.h"
+#include "holberton.h"
 /**
  * _which - searches directories in PATH variable for command
- * @filename: full path of command to execute
+ * @command: to search for
+ * @fullpath: full path of command to execute
+ * @path: full PATH variable
  * Return: pointer to full_path
  */
-
-char *_which(char *filename)
+char *_which(char *command, char *fullpath, char *path)
 {
-	char *path, *tmp_path, *token;
-	char *slash;
-	int size;
+	unsigned int command_length, path_length, original_path_length;
+	char *path_copy, *token;
 
-
-	path = _getenv("PATH");
-	if (path == NULL)
+	command_length = _strlen(command);
+	original_path_length = _strlen(path);
+	path_copy = malloc(sizeof(char) * original_path_length + 1);
+	if (path_copy == NULL)
+	{
+		errors(3);
 		return (NULL);
-
-	token = strtok(path, ":");
-
-	size = strlen(filename) + 2;
-	slash = malloc(size * sizeof(char));
-	slash = strcpy(slash, "/");
-	slash = strcat(slash, filename);
-
+	}
+	_strcpy(path_copy, path);
+	/* copy PATH directory + command name and check if it exists */
+	token = strtok(path_copy, ":");
+	if (token == NULL)
+		token = strtok(NULL, ":");
 	while (token != NULL)
 	{
-		tmp_path = malloc(strlen(token) + size);
-		tmp_path = strcpy(tmp_path, token);
-		tmp_path = strcat(tmp_path, slash);
-
-		if (is_executable(tmp_path) == PERMISSIONS)
+		path_length = _strlen(token);
+		fullpath = malloc(sizeof(char) * (path_length + command_length) + 2);
+		if (fullpath == NULL)
 		{
-			free(slash);
-			free(path);
-			return (tmp_path);
+			errors(3);
+			return (NULL);
 		}
-		token = strtok(NULL, ":");
-
-		free(tmp_path);
-	}
-
-	free(path);
-	free(slash);
-
-	return (NULL);
-}
-/**
- * is_executable - Check if a filename have permissions
- * for run
- *
- * @filename: Filename to check
- *
- * Return: On success, PERMISSIONS
- * On error, NON_PERMISSIONS
- **/
-int is_executable(char *filename)
-{
-	struct stat stats;
-
-	if (stat(filename, &stats) == 0)
-	{
-		if (stats.st_mode & X_OK)
-			return (PERMISSIONS);
+		_strcpy(fullpath, token);
+		fullpath[path_length] = '/';
+		_strcpy(fullpath + path_length + 1, command);
+		fullpath[path_length + command_length + 1] = '\0';
+		if (access(fullpath, X_OK) != 0)
+		{
+			free(fullpath);
+			fullpath = NULL;
+			token = strtok(NULL, ":");
+		}
 		else
-			return (NON_PERMISSIONS);
+			break;
 	}
-
-	return (NON_FILE);
+	free(path_copy);
+	return (fullpath);
 }
