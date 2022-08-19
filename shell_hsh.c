@@ -66,10 +66,9 @@ char **hsh_split_line(char *line)
  * 0 if there is a error
  */
 
-int hsh_launch(char **args, char **envs)
+int hsh_launch(char **args, char **envs, int status)
 {
 	pid_t pid;
-	int status;
 	char *fullpath = NULL;
 	/*char *namefile = (char *)malloc(200 * sizeof(char));*/
 
@@ -109,6 +108,7 @@ int hsh_launch(char **args, char **envs)
 int hsh_execute(char **args, char **envi)
 {
 	int i = 0;
+	int status = 1;
 	char *builtin_str[] = {
 	"cd",
 	"help",
@@ -123,10 +123,12 @@ int hsh_execute(char **args, char **envi)
 	for (i = 0; i < hsh_num_builtins(); i++)
 	{
 		if (strcmp(args[0], builtin_str[i]) == 0)
-			return ((*builtin_func[i])(args));
+		{	status = (*builtin_func[i])(args);
+			return (status);
+		}
 	}
 
-	return (hsh_launch(args, envi));
+	return (hsh_launch(args, envi, status));
 }
 /**
  * hsh_loop - main loop of the shell in which is printed the command pront
