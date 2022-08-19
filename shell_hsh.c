@@ -62,6 +62,7 @@ char **hsh_split_line(char *line)
  * hsh_launch - create two process and call the execve function
  * @args: arguments of the command
  * @envs: environment varibles
+ * @status: exit status
  * Return: 1 if the command execute right and
  * 0 if there is a error
  */
@@ -155,10 +156,6 @@ void hsh_loop(char **av)
 		status = hsh_execute(args, environ);
 		free(line);
 		free(args);
-		if (isatty(STDIN_FILENO) == 0)
-		{
-			break;
-		}
 
 	}
 }
