@@ -80,7 +80,7 @@ int hsh_exit(char **args)
 	if (args[0] == NULL)
 		return (0);
 
-	return (0);
+	return (2);
 
 }
 /**

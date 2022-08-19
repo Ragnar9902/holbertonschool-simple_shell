@@ -141,7 +141,7 @@ void hsh_loop(char **av)
 	int status = 1;
 
 	args = av;
-	while (status)
+	while (status && (status != 2))
 	{
 		status = isatty(STDIN_FILENO);
 		if (status)
