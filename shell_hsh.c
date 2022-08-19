@@ -156,6 +156,10 @@ void hsh_loop(char **av)
 		status = hsh_execute(args, environ);
 		free(line);
 		free(args);
+		if(isatty(STDIN_FILENO) == 0)
+		{
+			break;
+		}
 
 	}
 }
