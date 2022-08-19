@@ -66,7 +66,7 @@ char **hsh_split_line(char *line)
  * 0 if there is a error
  */
 
-int hsh_launch(char **args, char **envs, int status)
+int hsh_launch(char **args, char **envs, int *status)
 {
 	pid_t pid;
 	char *fullpath = NULL;
@@ -94,7 +94,7 @@ int hsh_launch(char **args, char **envs, int status)
 	} else if (pid < 0)                    /* Error forking*/
 		perror("lsh");
 	else                    /* Parent process*/
-		waitpid(pid, &status, WUNTRACED);
+		waitpid(pid, status, WUNTRACED);
 
 	return (1);
 }
@@ -128,7 +128,7 @@ int hsh_execute(char **args, char **envi)
 		}
 	}
 
-	return (hsh_launch(args, envi, status));
+	return (hsh_launch(args, envi, &status));
 }
 /**
  * hsh_loop - main loop of the shell in which is printed the command pront
