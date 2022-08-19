@@ -2,7 +2,12 @@
 #include "general.h"
 #include "memory.h"
 #include "text.h"
-
+/**
+ * analyze_patterns - analyze the imput format
+ * @info: data struct that contain all the information
+ * @arguments: line read and parsed
+ * Return: void
+ */
 void analyze_patterns(general_t *info, char **arguments)
 {
 	int i;
@@ -10,6 +15,12 @@ void analyze_patterns(general_t *info, char **arguments)
 	for (i = 0; arguments[i] != NULL; i++)
 		arguments[i] = pattern_handler(info, arguments[i]);
 }
+/**
+ * pattern_handler- procces the handler
+ * @info: data struct that contain all the information
+ * @string: line read and parsed
+ * Return: char
+ */
 
 char *pattern_handler(general_t *info, char *string)
 {
@@ -23,6 +34,13 @@ char *pattern_handler(general_t *info, char *string)
 
 	return (string);
 }
+/**
+ * replace_value - replace element in a string
+ * @info: data struct that contain all the information
+ * @index: index of elemen to replace
+ * @string: chain of character
+ * Return: char
+ */
 
 char *replace_value(general_t *info, int *index, char *string)
 {
@@ -36,7 +54,7 @@ char *replace_value(general_t *info, int *index, char *string)
 	if (value == NULL)
 	{
 		string = _strcpy(string, "");
-		return (string);;
+		return (string);
 	}
 
 	old_s = _strlen(string);
@@ -49,4 +67,3 @@ char *replace_value(general_t *info, int *index, char *string)
 	*index = i;
 	return (string);
 }
-

@@ -1,6 +1,13 @@
 #include "general.h"
 #include "text.h"
 #include "commands.h"
+/**
+ * replacement - analyze the imput format
+ * @info: data struct that contain all the information
+ * @index: line read and parsed
+ * @string: cahin to be rleplaced
+ * Return: void
+ */
 
 char *replacement(general_t *info, int *index, char *string)
 {
@@ -21,6 +28,13 @@ char *replacement(general_t *info, int *index, char *string)
 
 	return (tmp);
 }
+/**
+ * replace_env - analyze the imput format
+ * @info: data struct that contain all the information
+ * @environment: line read and parsed
+ * Return: void
+ */
+
 
 char *replace_env(general_t *info, char *environment)
 {
